@@ -1,46 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.geometry.Insets?>
-
-<VBox xmlns:fx="http://javafx.com/fxml"
-      fx:controller="ni.edu.uam.practicahilos.ProcesadorController"
-      alignment="CENTER"
-      spacing="20"
-      prefWidth="520"
-      prefHeight="350">
-
-    <padding>
-        <Insets top="25" right="25"
-                bottom="25" left="25"/>
-    </padding>
-
-    <Label text="Procesador de registros"
-           style="-fx-font-size: 22px;"/>
-
-    <Label fx:id="lblEstado"
-           text="Esperando inicio"/>
-
-    <ProgressBar fx:id="barraProgreso"
-                 progress="0"
-                 prefWidth="420"/>
-
-    <Label fx:id="lblPorcentaje"
-           text="0%"/>
-
-    <HBox alignment="CENTER" spacing="10">
-        <Button fx:id="btnIniciar"
-                text="Iniciar"
-                onAction="#iniciarProceso"/>
-
-        <Button fx:id="btnDetener"
-                text="Detener"
-                onAction="#detenerProceso"
-                disable="true"/>
-
-        <Button fx:id="btnReiniciar"
-                text="Reiniciar"
-                onAction="#reiniciarProceso"/>
-    </HBox>
-</VBox>
+<AnchorPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="ni.edu.uam.practicahilosjavafx.ProcesadorController" styleClass="contenido">
+    <Label text="Procesador de registros" styleClass="seccion"
+           AnchorPane.topAnchor="30" AnchorPane.leftAnchor="28"/>
+    <Label text="100 registros · 100 ms por registro · aproximadamente 10 segundos"
+           styleClass="detalle" AnchorPane.topAnchor="68" AnchorPane.leftAnchor="28"/>
+    <AnchorPane styleClass="tarjeta" prefHeight="230" AnchorPane.topAnchor="110"
+                AnchorPane.leftAnchor="28" AnchorPane.rightAnchor="28">
+        <Label fx:id="lblEstado" text="Esperando inicio" styleClass="estado"
+               AnchorPane.topAnchor="25" AnchorPane.leftAnchor="24"/>
+        <Label fx:id="lblPorcentaje" text="0%" styleClass="porcentaje"
+               AnchorPane.topAnchor="20" AnchorPane.rightAnchor="24"/>
+        <ProgressBar fx:id="barraProgreso" progress="0" maxWidth="Infinity"
+                     AnchorPane.topAnchor="76" AnchorPane.leftAnchor="24" AnchorPane.rightAnchor="24"/>
+        <Label fx:id="lblRegistros" text="0 de 100 registros" styleClass="detalle"
+               AnchorPane.topAnchor="112" AnchorPane.leftAnchor="24"/>
+        <Button fx:id="btnIniciar" text="Iniciar" onAction="#iniciarProceso" prefWidth="112"
+                styleClass="primario" AnchorPane.topAnchor="165" AnchorPane.leftAnchor="24"/>
+        <Button fx:id="btnDetener" text="Detener" onAction="#detenerProceso" prefWidth="112"
+                disable="true" styleClass="detener" AnchorPane.topAnchor="165" AnchorPane.leftAnchor="148"/>
+        <Button fx:id="btnReiniciar" text="Reiniciar" onAction="#reiniciarProceso" prefWidth="112"
+                AnchorPane.topAnchor="165" AnchorPane.leftAnchor="272"/>
+    </AnchorPane>
+    <Label text="Podés mover la ventana mientras se procesan los registros." styleClass="detalle"
+           AnchorPane.topAnchor="360" AnchorPane.leftAnchor="28"/>
+    <Separator AnchorPane.topAnchor="402" AnchorPane.leftAnchor="28" AnchorPane.rightAnchor="28"/>
+    <Label text="Comparación: bloqueo de la interfaz" styleClass="estado"
+           AnchorPane.topAnchor="422" AnchorPane.leftAnchor="28"/>
+    <Label text="Este ejemplo pausa toda la ventana durante 5 segundos."
+           styleClass="detalle" AnchorPane.topAnchor="455" AnchorPane.leftAnchor="28"/>
+    <Button fx:id="btnBloqueo" text="Probar bloqueo (5 s)" onAction="#procesoBloqueante"
+            AnchorPane.topAnchor="491" AnchorPane.leftAnchor="28">
+        <tooltip><Tooltip text="Ejecuta sleep en el hilo de JavaFX para demostrar el bloqueo."/></tooltip>
+    </Button>
+</AnchorPane>
