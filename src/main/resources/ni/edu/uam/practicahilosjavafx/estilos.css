@@ -1,0 +1,45 @@
+.root {
+    -fx-font-family: "Segoe UI", "DejaVu Sans", sans-serif;
+    -fx-font-size: 14px;
+    -fx-text-fill: #24344d;
+}
+.fondo { -fx-background-color: #edf2f8; }
+.titulo { -fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #172b49; }
+.subtitulo { -fx-font-size: 15px; -fx-text-fill: #62748e; }
+.contenido { -fx-background-color: #f8fafc; }
+.seccion { -fx-font-size: 23px; -fx-font-weight: bold; -fx-text-fill: #172b49; }
+.estado { -fx-font-size: 17px; -fx-font-weight: bold; -fx-text-fill: #24344d; }
+.detalle { -fx-text-fill: #64748b; -fx-font-size: 13px; }
+.porcentaje { -fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #2363b6; }
+.tarjeta {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-border-color: #dce4ef;
+    -fx-border-radius: 10;
+}
+.button {
+    -fx-background-color: #e8eef5;
+    -fx-text-fill: #24344d;
+    -fx-background-radius: 6;
+    -fx-padding: 8 14;
+    -fx-cursor: hand;
+}
+.button:hover { -fx-background-color: #dbe5f0; }
+.button.primario { -fx-background-color: #2363b6; -fx-text-fill: white; }
+.button.primario:hover { -fx-background-color: #194f97; }
+.button.detener { -fx-background-color: #fee8e6; -fx-text-fill: #a23229; }
+.button.detener:hover { -fx-background-color: #fbd5d1; }
+.button:disabled { -fx-opacity: 0.45; }
+.progress-bar { -fx-pref-height: 17px; -fx-accent: #2363b6; }
+.progress-bar > .track {
+    -fx-background-color: #e8eef5;
+    -fx-background-radius: 8;
+    -fx-background-insets: 0;
+}
+.progress-bar > .bar { -fx-background-insets: 0; -fx-background-radius: 8; }
+.productos .progress-bar { -fx-accent: #0d947e; }
+.productos .porcentaje { -fx-text-fill: #0d947e; }
+.tab-pane > .tab-header-area > .tab-header-background { -fx-background-color: #edf2f8; }
+.tab { -fx-background-color: #e0e8f2; -fx-padding: 8 14; }
+.tab:selected { -fx-background-color: #f8fafc; }
+.tab-label { -fx-text-fill: #24344d; -fx-font-weight: bold; }
