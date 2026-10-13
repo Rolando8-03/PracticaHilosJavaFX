@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<AnchorPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="ni.edu.uam.practicahilosjavafx.MonitorController" styleClass="contenido">
+    <Label text="Monitor de procesos" styleClass="seccion"
+           AnchorPane.topAnchor="24" AnchorPane.leftAnchor="28"/>
+    <Label text="Clientes y productos se procesan de forma independiente." styleClass="detalle"
+           AnchorPane.topAnchor="59" AnchorPane.leftAnchor="28"/>
+
+    <AnchorPane styleClass="tarjeta,clientes" prefHeight="185" AnchorPane.topAnchor="95"
+                AnchorPane.leftAnchor="28" AnchorPane.rightAnchor="28">
+        <Label text="Clientes" styleClass="estado" AnchorPane.topAnchor="17" AnchorPane.leftAnchor="24"/>
+        <Label text="100 registros · 100 ms por registro" styleClass="detalle"
+               AnchorPane.topAnchor="45" AnchorPane.leftAnchor="24"/>
+        <Label fx:id="lblPorcentajeClientes" text="0%" styleClass="porcentaje"
+               AnchorPane.topAnchor="17" AnchorPane.rightAnchor="24"/>
+        <ProgressBar fx:id="barraClientes" progress="0" maxWidth="Infinity"
+                     AnchorPane.topAnchor="79" AnchorPane.leftAnchor="24" AnchorPane.rightAnchor="24"/>
+        <Label fx:id="lblEstadoClientes" text="Esperando inicio" styleClass="detalle"
+               AnchorPane.topAnchor="110" AnchorPane.leftAnchor="24"/>
+        <Label fx:id="lblRegistrosClientes" text="0 de 100 registros" styleClass="detalle"
+               AnchorPane.topAnchor="110" AnchorPane.rightAnchor="24"/>
+        <Button fx:id="btnIniciarClientes" text="Iniciar clientes" onAction="#iniciarClientes"
+                prefWidth="170" styleClass="primario" AnchorPane.topAnchor="141" AnchorPane.leftAnchor="24"/>
+        <Button fx:id="btnDetenerClientes" text="Detener" onAction="#detenerClientes"
+                prefWidth="112" disable="true" styleClass="detener" AnchorPane.topAnchor="141" AnchorPane.leftAnchor="206"/>
+        <Button fx:id="btnReiniciarClientes" text="Reiniciar" onAction="#reiniciarClientes"
+                prefWidth="112" AnchorPane.topAnchor="141" AnchorPane.leftAnchor="330"/>
+    </AnchorPane>
+
+    <AnchorPane styleClass="tarjeta,productos" prefHeight="185" AnchorPane.topAnchor="300"
+                AnchorPane.leftAnchor="28" AnchorPane.rightAnchor="28">
+        <Label text="Productos" styleClass="estado" AnchorPane.topAnchor="17" AnchorPane.leftAnchor="24"/>
+        <Label text="50 registros · 140 ms por registro" styleClass="detalle"
+               AnchorPane.topAnchor="45" AnchorPane.leftAnchor="24"/>
+        <Label fx:id="lblPorcentajeProductos" text="0%" styleClass="porcentaje"
+               AnchorPane.topAnchor="17" AnchorPane.rightAnchor="24"/>
+        <ProgressBar fx:id="barraProductos" progress="0" maxWidth="Infinity"
+                     AnchorPane.topAnchor="79" AnchorPane.leftAnchor="24" AnchorPane.rightAnchor="24"/>
+        <Label fx:id="lblEstadoProductos" text="Esperando inicio" styleClass="detalle"
+               AnchorPane.topAnchor="110" AnchorPane.leftAnchor="24"/>
+        <Label fx:id="lblRegistrosProductos" text="0 de 50 registros" styleClass="detalle"
+               AnchorPane.topAnchor="110" AnchorPane.rightAnchor="24"/>
+        <Button fx:id="btnIniciarProductos" text="Iniciar productos" onAction="#iniciarProductos"
+                prefWidth="170" styleClass="primario" AnchorPane.topAnchor="141" AnchorPane.leftAnchor="24"/>
+        <Button fx:id="btnDetenerProductos" text="Detener" onAction="#detenerProductos"
+                prefWidth="112" disable="true" styleClass="detener" AnchorPane.topAnchor="141" AnchorPane.leftAnchor="206"/>
+        <Button fx:id="btnReiniciarProductos" text="Reiniciar" onAction="#reiniciarProductos"
+                prefWidth="112" AnchorPane.topAnchor="141" AnchorPane.leftAnchor="330"/>
+    </AnchorPane>
+
+    <Button fx:id="btnIniciarAmbos" text="Iniciar ambos" onAction="#iniciarAmbos" prefWidth="142"
+            styleClass="primario" AnchorPane.topAnchor="510" AnchorPane.leftAnchor="28"/>
+    <Button fx:id="btnReiniciarAmbos" text="Reiniciar ambos" onAction="#reiniciarAmbos" prefWidth="150"
+            AnchorPane.topAnchor="510" AnchorPane.leftAnchor="182"/>
+</AnchorPane>
