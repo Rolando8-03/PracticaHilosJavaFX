@@ -11,7 +11,7 @@
     <AnchorPane styleClass="tarjeta,clientes" prefHeight="185" AnchorPane.topAnchor="95"
                 AnchorPane.leftAnchor="28" AnchorPane.rightAnchor="28">
         <Label text="Clientes" styleClass="estado" AnchorPane.topAnchor="17" AnchorPane.leftAnchor="24"/>
-        <Label text="100 registros · 100 ms por registro" styleClass="detalle"
+        <Label text="100 registros · 50 ms por registro" styleClass="detalle"
                AnchorPane.topAnchor="45" AnchorPane.leftAnchor="24"/>
         <Label fx:id="lblPorcentajeClientes" text="0%" styleClass="porcentaje"
                AnchorPane.topAnchor="17" AnchorPane.rightAnchor="24"/>
@@ -32,7 +32,7 @@
     <AnchorPane styleClass="tarjeta,productos" prefHeight="185" AnchorPane.topAnchor="300"
                 AnchorPane.leftAnchor="28" AnchorPane.rightAnchor="28">
         <Label text="Productos" styleClass="estado" AnchorPane.topAnchor="17" AnchorPane.leftAnchor="24"/>
-        <Label text="50 registros · 140 ms por registro" styleClass="detalle"
+        <Label text="50 registros · 200 ms por registro" styleClass="detalle"
                AnchorPane.topAnchor="45" AnchorPane.leftAnchor="24"/>
         <Label fx:id="lblPorcentajeProductos" text="0%" styleClass="porcentaje"
                AnchorPane.topAnchor="17" AnchorPane.rightAnchor="24"/>
