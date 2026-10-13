@@ -7,138 +7,109 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 
 public class ProcesadorController {
+    @FXML private Label lblEstado;
+    @FXML private Label lblPorcentaje;
+    @FXML private Label lblRegistros;
+    @FXML private ProgressBar barraProgreso;
+    @FXML private Button btnIniciar;
+    @FXML private Button btnDetener;
+    @FXML private Button btnReiniciar;
+    @FXML private Button btnBloqueo;
 
-    @FXML
-    private Label lblEstado;
-
-    @FXML
-    private Label lblPorcentaje;
-
-    @FXML
-    private ProgressBar barraProgreso;
-
-    @FXML
-    private Button btnIniciar;
-
-    @FXML
-    private Button btnDetener;
-
-    @FXML
-    private Button btnReiniciar;
-
+    // Estas variables se consultan y modifican solo en el hilo de JavaFX.
     private Thread hiloProceso;
+    private boolean deteniendo;
+    private boolean cerrado;
 
     @FXML
     private void iniciarProceso() {
+        if (cerrado || hiloProceso != null) return;
 
-        if (hiloProceso != null &&
-                hiloProceso.isAlive()) {
-            return;
-        }
-
+        deteniendo = false;
         barraProgreso.setProgress(0);
         lblPorcentaje.setText("0%");
+        lblRegistros.setText("0 de 100 registros");
         lblEstado.setText("Procesando registros...");
-
-        btnIniciar.setDisable(true);
-        btnDetener.setDisable(false);
-        btnReiniciar.setDisable(true);
+        habilitarBotones(false);
 
         Runnable tarea = () -> {
-
+            Thread actual = Thread.currentThread();
+            boolean completado = false;
             try {
                 for (int i = 1; i <= 100; i++) {
-
-                    if (Thread.currentThread()
-                            .isInterrupted()) {
-                        throw new InterruptedException();
-                    }
-
+                    if (actual.isInterrupted()) throw new InterruptedException();
                     Thread.sleep(100);
-
                     final int avance = i;
-
                     Platform.runLater(() -> {
-                        barraProgreso.setProgress(
-                                avance / 100.0
-                        );
-
-                        lblPorcentaje.setText(
-                                avance + "%"
-                        );
+                        // Ignora actualizaciones pendientes después de pedir detener.
+                        if (cerrado || hiloProceso != actual || deteniendo) return;
+                        barraProgreso.setProgress(avance / 100.0);
+                        lblPorcentaje.setText(avance + "%");
+                        lblRegistros.setText(avance + " de 100 registros");
                     });
                 }
-
-                Platform.runLater(() -> {
-                    lblEstado.setText(
-                            "Proceso finalizado"
-                    );
-                    habilitarBotones();
-                });
-
+                completado = true;
             } catch (InterruptedException e) {
-
-                Thread.currentThread().interrupt();
-
+                actual.interrupt();
+            } finally {
+                final boolean resultado = completado;
                 Platform.runLater(() -> {
-                    lblEstado.setText(
-                            "Proceso detenido"
-                    );
-                    habilitarBotones();
+                    if (cerrado || hiloProceso != actual) return;
+                    lblEstado.setText(resultado && !deteniendo
+                            ? "Proceso finalizado" : "Proceso detenido");
+                    hiloProceso = null;
+                    deteniendo = false;
+                    habilitarBotones(true);
                 });
             }
         };
 
-        hiloProceso = new Thread(tarea);
-
-        hiloProceso.setName("Hilo-Procesamiento");
+        hiloProceso = new Thread(tarea, "Hilo-Procesamiento");
         hiloProceso.setDaemon(true);
         hiloProceso.start();
     }
 
     @FXML
     private void detenerProceso() {
-
-        if (hiloProceso != null &&
-                hiloProceso.isAlive()) {
-
-            btnDetener.setDisable(true);
-
-            lblEstado.setText(
-                    "Solicitando detención..."
-            );
-
-            hiloProceso.interrupt();
-        }
+        if (hiloProceso == null || deteniendo) return;
+        deteniendo = true;
+        btnDetener.setDisable(true);
+        lblEstado.setText("Solicitando detención...");
+        hiloProceso.interrupt();
     }
 
     @FXML
     private void reiniciarProceso() {
-
-        if (hiloProceso != null &&
-                hiloProceso.isAlive()) {
-            return;
-        }
-
+        if (cerrado || hiloProceso != null) return;
         barraProgreso.setProgress(0);
         lblPorcentaje.setText("0%");
+        lblRegistros.setText("0 de 100 registros");
         lblEstado.setText("Esperando inicio");
-
-        habilitarBotones();
+        habilitarBotones(true);
     }
 
-    private void habilitarBotones() {
-        btnIniciar.setDisable(false);
-        btnDetener.setDisable(true);
-        btnReiniciar.setDisable(false);
+    private void habilitarBotones(boolean disponible) {
+        btnIniciar.setDisable(!disponible);
+        btnDetener.setDisable(disponible);
+        btnReiniciar.setDisable(!disponible);
+        btnBloqueo.setDisable(!disponible);
+    }
+
+    // Ejemplo del paso 6: esta pausa bloquea la ventana intencionalmente.
+    @FXML
+    private void procesoBloqueante() {
+        if (cerrado || hiloProceso != null) return;
+        lblEstado.setText("Procesando...");
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+        lblEstado.setText("Demostración finalizada");
     }
 
     public void detenerAlCerrar() {
-
-        if (hiloProceso != null &&
-                hiloProceso.isAlive()) {
-
-            hiloProceso.interrupt();
-        }
+        cerrado = true;
+        if (hiloProceso != null) hiloProceso.interrupt();
     }
 }
